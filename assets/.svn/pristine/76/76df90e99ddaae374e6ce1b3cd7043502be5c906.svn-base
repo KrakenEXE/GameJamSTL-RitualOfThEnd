@@ -1,0 +1,36 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class BossKuro : MonoBehaviour {
+
+    private const float _jumpDelayMax = 2.0f;
+    private const float _jumpDelayMin = 1.0f;
+
+    private Collider2D _collider;
+    private Rigidbody2D _rigidBody;
+    private float _jumpDelayCurrent;
+
+    // Use this for initialization
+    void Start () {
+        _collider = GetComponent<Collider2D>();
+        _rigidBody = GetComponent<Rigidbody2D>();
+        _jumpDelayCurrent = Random.Range(_jumpDelayMin, _jumpDelayMax);
+    }
+	
+	// Update is called once per frame
+	void Update () {
+        float deltaTime = Time.deltaTime;
+
+        if (_jumpDelayCurrent > deltaTime)
+        {
+            _jumpDelayCurrent -= deltaTime;
+        }
+        else
+        {
+            _jumpDelayCurrent = Random.Range(_jumpDelayMin, _jumpDelayMax);
+            var velocity = _rigidBody.velocity;
+            velocity.y = 10;
+            _rigidBody.velocity = velocity;
+        }
+    }
+}

@@ -1,0 +1,190 @@
+fileFormatVersion: 2
+guid: 5e6b9f9cf91eb3e4b85cf6a91af3ea62
+timeCreated: 1454134516
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: left_button
+    21300002: right_button
+    21300004: jump_button
+    21300006: attack_button
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: left_button
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 320
+        width: 260
+        height: 260
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 127, y: -41}
+        - {x: 130, y: -32}
+        - {x: 130, y: 36}
+        - {x: 111, y: 77}
+        - {x: 90, y: 99}
+        - {x: 70, y: 116}
+        - {x: 35, y: 130}
+        - {x: -42, y: 130}
+        - {x: -73, y: 113}
+        - {x: -104, y: 85}
+        - {x: -126, y: 52}
+        - {x: -130, y: 40}
+        - {x: -130, y: -43}
+        - {x: -129, y: -50}
+        - {x: -102, y: -90}
+        - {x: -72, y: -113}
+        - {x: -48, y: -126}
+        - {x: -28, y: -130}
+        - {x: 28, y: -130}
+        - {x: 50, y: -125}
+        - {x: 80, y: -112}
+        - {x: 118, y: -67}
+    - name: right_button
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 314
+        width: 260
+        height: 260
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 124, y: -54}
+        - {x: 130, y: -32}
+        - {x: 130, y: 36}
+        - {x: 115, y: 72}
+        - {x: 104, y: 88}
+        - {x: 65, y: 120}
+        - {x: 37, y: 130}
+        - {x: -41, y: 130}
+        - {x: -86, y: 106}
+        - {x: -115, y: 68}
+        - {x: -128, y: 38}
+        - {x: -130, y: 30}
+        - {x: -130, y: -36}
+        - {x: -117, y: -69}
+        - {x: -82, y: -109}
+        - {x: -71, y: -117}
+        - {x: -36, y: -130}
+        - {x: 31, y: -130}
+        - {x: 54, y: -123}
+        - {x: 77, y: -110}
+        - {x: 103, y: -87}
+    - name: jump_button
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 2
+        width: 260
+        height: 260
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 130, y: -32}
+        - {x: 130, y: 30}
+        - {x: 126, y: 47}
+        - {x: 103, y: 88}
+        - {x: 69, y: 116}
+        - {x: 47, y: 125}
+        - {x: 27, y: 130}
+        - {x: -29, y: 130}
+        - {x: -53, y: 124}
+        - {x: -79, y: 110}
+        - {x: -113, y: 75}
+        - {x: -130, y: 44}
+        - {x: -130, y: -35}
+        - {x: -126, y: -47}
+        - {x: -109, y: -81}
+        - {x: -69, y: -117}
+        - {x: -39, y: -130}
+        - {x: 36, y: -130}
+        - {x: 73, y: -114}
+        - {x: 99, y: -94}
+        - {x: 126, y: -50}
+    - name: attack_button
+      rect:
+        serializedVersion: 2
+        x: 341
+        y: 0
+        width: 260
+        height: 260
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 130, y: -41}
+        - {x: 130, y: 32}
+        - {x: 126, y: 49}
+        - {x: 107, y: 83}
+        - {x: 83, y: 107}
+        - {x: 48, y: 126}
+        - {x: 30, y: 130}
+        - {x: -33, y: 130}
+        - {x: -61, y: 124}
+        - {x: -112, y: 79}
+        - {x: -130, y: 42}
+        - {x: -130, y: -29}
+        - {x: -126, y: -41}
+        - {x: -115, y: -71}
+        - {x: -85, y: -107}
+        - {x: -43, y: -128}
+        - {x: -30, y: -130}
+        - {x: 28, y: -130}
+        - {x: 47, y: -126}
+        - {x: 81, y: -108}
+        - {x: 107, y: -88}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

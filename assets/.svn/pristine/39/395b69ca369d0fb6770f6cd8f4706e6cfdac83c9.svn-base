@@ -1,0 +1,112 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class BossKuro : EnemyBase {
+
+    public Transform _player;
+
+    private const float _jumpDelayMax = 2.0f;
+    private const float _jumpDelayMin = 1.0f;
+    private const float _chargeDelayMax = 1f;
+    private const float _chargeDurationMax = 2f;
+    private const float _chargeSpeed = 7f;
+
+    //private const float _chargeTimeLength = 1;
+    //private const float _chargeDown = 4;
+
+    private Collider2D _collider;
+    private Rigidbody2D _rigidBody;
+    private float _jumpDelayCurrent;
+    private bool _charging;
+    private float _chargeDelayCur;
+    private float _chargeDurationCur;
+    private Vector3 _playerPosition;
+    private float _chargeVelocityX;
+
+    //variabless for charge timer
+    //private const float _duration = 3;
+    //private float _current;
+
+    // Use this for initialization
+    protected override void Start () {
+        _collider = GetComponent<Collider2D>();
+        _rigidBody = GetComponent<Rigidbody2D>();
+        _jumpDelayCurrent = Random.Range(_jumpDelayMin, _jumpDelayMax);
+    }
+
+    // Update is called once per frame
+    protected override void Update () {
+        if (_dead || transform.position.y <= PlayerCamera._deadY)
+        {
+            Kill();
+            GameObject.DestroyImmediate(gameObject);
+            return;
+        }
+
+        float deltaTime = Time.deltaTime;
+
+        // If not charging and player is nearby, then stop and start charging in a second
+        if (!_charging && Mathf.Abs(_player.position.y - transform.position.y) <= 5 && 
+            Mathf.Abs(_player.position.x - transform.position.x) <= 10)
+        {
+            _charging = true;
+            _jumpDelayCurrent = Random.Range(_jumpDelayMin, _jumpDelayMax);
+            _chargeDelayCur = _chargeDelayMax;
+            _chargeDurationCur = _chargeDurationMax;
+            _playerPosition = _player.position;
+
+            var deltaX = _playerPosition.x - transform.position.x;
+            _chargeVelocityX = _chargeSpeed * Mathf.Sign(deltaX);
+        }
+
+        // Are we charging or waiting to charge?
+        if (_charging)
+        {
+            // Are we still waiting to charge?
+            if (_chargeDelayCur > deltaTime)
+            {
+                _chargeDelayCur -= deltaTime;
+            }
+            // Are we still charging?
+            else if (_chargeDurationCur > deltaTime)
+            {
+                _chargeDurationCur -= deltaTime;
+
+                var velocity = _rigidBody.velocity;
+                velocity.x = _chargeVelocityX;
+                _rigidBody.velocity = velocity;
+            }
+            // We are done charging
+            else
+            {
+                _charging = false;
+            }
+        }
+        else
+        {
+            // Are we waiting to jump?
+            if (_jumpDelayCurrent > deltaTime)
+            {
+                _jumpDelayCurrent -= deltaTime;
+            }
+            // Jump
+
+            else
+            {
+                _jumpDelayCurrent = Random.Range(_jumpDelayMin, _jumpDelayMax);
+                var velocity = _rigidBody.velocity;
+                velocity.y = 10;
+                _rigidBody.velocity = velocity;
+            }
+        }
+
+        //charge attack 
+
+    }
+
+    public void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(transform.position, _player.position);
+    }
+}

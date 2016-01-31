@@ -1,0 +1,41 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class AngelBeam : MonoBehaviour {
+
+    public Transform _source;
+    public Transform _target;
+    
+    private const float _minWidth = .2f;
+    private const float _maxWidth = 1f;
+    private const float _lifeTime = 1f;
+
+    private Vector3 _targetPosition;
+    private float _time;
+    private float _width;
+    private LineRenderer _beam;
+
+	// Use this for initialization
+	void Start () {
+        _targetPosition = _target.position;
+        _width = _minWidth;
+        _time = 0;
+        _beam = GetComponent<LineRenderer>();
+	}
+	
+	// Update is called once per frame
+	void Update () {
+        _time += Time.deltaTime;
+        _width = Mathf.Lerp(_minWidth, _maxWidth, Mathf.Min(1.0f, _time / _lifeTime));
+
+        _beam.SetVertexCount(2);
+        _beam.SetPosition(0, _source.position);
+        _beam.SetPosition(1, _targetPosition);
+        _beam.SetWidth(_width, _width);
+
+        if (_time >= _lifeTime)
+        {
+            GameObject.DestroyImmediate(gameObject);
+        }
+    }
+}

@@ -1,0 +1,32 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class AngelBoss : EnemyBase
+{
+    
+    public Transform[] _teleportTargets = new Transform[0];
+
+    // Use this for initialization
+    protected override void Start ()
+    {
+        base.Start();
+        
+	}
+	
+	// Update is called once per frame
+	protected override void Update () {
+	    base.Update();
+    }
+
+    protected override void OnDamage()
+    {
+        base.OnDamage();
+        Teleport();
+    }
+
+    public void Teleport()
+    {
+        int targetPosition = Random.Range(0, _teleportTargets.Length);
+        transform.position = _teleportTargets[targetPosition].position;
+    }
+}

@@ -1,0 +1,27 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class Grenade : MonoBehaviour {
+
+    private float _explodeDelay;
+
+	// Use this for initialization
+	void Start () {
+        _explodeDelay = 4.0f;
+    }
+	
+	// Update is called once per frame
+	void Update () {
+        float deltaTime = Time.deltaTime;
+        _explodeDelay -= deltaTime;
+        if (_explodeDelay <= 0)
+        {
+            GameObject.DestroyImmediate(gameObject);
+        }
+    }
+
+    public void Explode()
+    {
+        _explodeDelay = 0.0f;
+    }
+}

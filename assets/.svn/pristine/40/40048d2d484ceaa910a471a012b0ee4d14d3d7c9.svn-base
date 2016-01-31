@@ -1,0 +1,160 @@
+﻿using UnityEngine;
+using System.Collections;
+using UnityEngine.SceneManagement;
+using System.Runtime.InteropServices;
+
+public class PlayerController : MonoBehaviour
+{
+    public Transform _feet = null;
+    public float _feetRadius = 0.2f;
+    public LayerMask _groundMask;
+    public bool _grounded;
+    public int _jumpsLeft;
+    public PlayerHud _hud;
+
+    private const float _walkSpeed = 10.0f;
+    private const float _jumpSpeed = 10.0f;
+    private const float _jumpDelayMax = 0.2f;
+    private const int _jumpsMax = 2;
+
+    private Collider2D _collider;
+    private Rigidbody2D _rigidBody;
+    private Animator _animator;
+    private float _jumpDelayCur;
+    private bool _facingRight;
+    //private float _vibrationDuration;
+    
+    public void Start()
+    {
+        _collider = GetComponent<Collider2D>();
+        _rigidBody = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
+        _jumpDelayCur = 0.0f;
+        _jumpsLeft = _jumpsMax;
+        _facingRight = true;
+        _grounded = false;
+        //_vibrationDuration = 0.0f;
+    }
+
+    public void Update()
+    {
+        if (Input.GetButtonDown("Quit"))
+        {
+            Quit();
+            return;
+        }
+        else if (Input.GetButtonDown("Restart"))
+        {
+            Restart();
+            return;
+        }
+
+        float deltaTime = Time.deltaTime;
+        bool jump = Input.GetButtonDown("Jump") || _hud._jumpPressed;
+        bool attack = Input.GetButtonDown("Fire1") || _hud._attackPressed;
+
+        // Jumping
+        if (_jumpDelayCur > deltaTime)
+        {
+            _jumpDelayCur -= deltaTime;
+        }
+        else if (jump && _jumpsLeft > 0)
+        {
+            _jumpDelayCur = _jumpDelayMax;
+            --_jumpsLeft;
+            _grounded = false;
+            Debug.DrawRay(transform.position, new Vector2(0.0f, 0.5f), Color.red, 1.0f);
+
+            var velocity = _rigidBody.velocity;
+            velocity.y = _jumpSpeed + Mathf.Max(0.0f, velocity.y);
+            _rigidBody.velocity = velocity;
+
+            //_vibrationDuration = 0.5f;
+        }
+        else
+        {
+            _jumpDelayCur = 0.0f;
+        }
+
+        // Attacking
+        //if (attack)
+        //{
+        //    _vibrationDuration = 0.5f;
+        //}
+
+        // Vibration
+        //if (_vibrationDuration > 0)
+        //{
+        //    _vibrationDuration -= deltaTime;
+        //    Handheld.Vibrate();
+        //}
+    }
+
+    public void FixedUpdate() {
+        float deltaTime = Time.fixedDeltaTime;
+        float horizontal = Mathf.Clamp(
+            Input.GetAxis("Horizontal") - (_hud._leftPressed ? 1 : 0) + (_hud._rightPressed ? 1 : 0),
+            -1, 1
+        );
+        var velocity = _rigidBody.velocity;
+
+        // Grounded
+        _grounded = Physics2D.OverlapCircle(_feet.position, _feetRadius, _groundMask);
+        if (_grounded && velocity.y <= 0)
+        {
+            _jumpDelayCur = 0.0f;
+            _jumpsLeft = _jumpsMax;
+        }
+
+        // Walking
+        velocity.x = horizontal * _walkSpeed;
+        _rigidBody.velocity = velocity;
+        if (horizontal > 0 && !_facingRight)
+        {
+            Flip();
+        }
+        else if (horizontal < 0 && _facingRight)
+        {
+            Flip();
+        }
+        
+        // Update Animator
+        _animator.SetBool("Grounded", _grounded);
+        _animator.SetFloat("HorizontalSpeed", Mathf.Abs(horizontal));
+        _animator.SetFloat("VerticalSpeed", velocity.y);
+    }
+
+    public void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawRay(transform.position, transform.right * transform.localScale.x);
+        Gizmos.DrawRay(transform.position, transform.up);
+
+        if (_feet != null)
+        {
+            Gizmos.DrawSphere(_feet.position, _feetRadius);
+        }
+    }
+
+    public void OnCollisionEnter2D(Collision2D c)
+    {
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
+    public void Flip()
+    {
+        _facingRight = !_facingRight;
+        var localScale = transform.localScale;
+        localScale.x *= -1.0f;
+        transform.localScale = localScale;
+    }
+}
